@@ -1,0 +1,56 @@
+{{template "base" .}}
+{{define "title"}}Contact #{{.Contact.ID}}{{end}}
+{{define "body"}}
+    {{with .Contact}}
+	<div class="tablee">
+		<table class="table table-hover">
+		  <thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Name</th>
+		      <th scope="col">Number</th>
+		      <th scope="col">Action</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <th scope="row">{{.ID}}</th>
+		      <td>{{.Name}}</td>
+		      <td>{{.Mobile}}</td>
+		      <td class="action">
+	      	
+				<a class="btn btn-warning" href='/contact/update/{{.ID}}'><i class="fas fa-edit"></i></a>
+				<a href='/contact/del/{{.ID}}' class="btn btn-danger"><i class="fas fa-trash"></i></a>
+				<button type="button" class="btn btn-primary" onclick="document.getElementById('msgModel').style.display='block'"><i class="fas fa-sms"></i></button>
+		      </td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+
+	<div id="msgModel" class="modal">
+		
+		<form class="modal-content animate" action="/contact/{{.ID}}" method="post">
+		  <div class="closeContainer">
+			<span onclick="document.getElementById('msgModel').style.display='none'" class="close" title="Close Modal">&times;</span>
+		  </div>
+	  
+		  <div class="container">
+			<div class="form-group mx-sm-6 mb-2">
+			To: <input class="form-control" type="text" value="{{.Name}}" readonly>
+	  
+			<input class="form-control" type="text" name="phoneNo" value="{{.Mobile}}" readonly>
+		</div>
+			<label>Message:</label>
+			<textarea name="msgBody" style="height: 150px" required> </textarea>
+			
+			<button class="btnsms" type="submit">Send Message</button>
+				</div>
+				
+		</form>
+		
+	  </div>
+	  
+
+{{end}}
+{{end}}
